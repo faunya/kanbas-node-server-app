@@ -12,5 +12,7 @@ export function enrollUserInCourse(userId, courseId) {
 
 export function unenrollUserInCourse(enrollmentId) {
     const { enrollments } = Database;
-    Database.enrollments = enrollments.filter((enrollment) => enrollment._id !== enrollmentId);
+    const newEnrollments = enrollments.filter((enrollment) => enrollment._id.toString() !== enrollmentId.toString());
+    console.log(newEnrollments);
+    Database.enrollments = newEnrollments;
 }

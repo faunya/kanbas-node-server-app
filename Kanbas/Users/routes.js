@@ -116,7 +116,6 @@ export default function UserRoutes(app) {
     const deleteEnrollment = async (req, res) => {
         const { enrollmentId } = req.params;
         const status = await enrollmentsDao.unenrollUserInCourse(enrollmentId);
-        console.log(enrollments)
         res.json(status);
         
     };
