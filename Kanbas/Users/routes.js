@@ -115,10 +115,11 @@ export default function UserRoutes(app) {
         if (uid === "current") {
             uid = currentUser._id;
         }
-        const courses = await enrollmentsDao.enrollUserInCourse(uid);
+        const courses = await enrollmentsDao.findCoursesForUser(uid);
         res.json(courses);
     };
     app.get("/api/users/:uid/courses", findCoursesForUser);
+
 
     const createCourse = (req, res) => {
         const currentUser = req.session["currentUser"];
@@ -142,20 +143,29 @@ export default function UserRoutes(app) {
         const enrollments = enrollmentsDao.findEnrollmentsForUser(userId);
         res.json(enrollments);
     };
+
+    const enrollUserInCourse = async (req, res) => {
+        let { uid, cid } = req.params;
+        if (uid === "current") {
+            const currentUser = req.session["currentUser"];
+            uid = currentUser._id;
+        }
+        const status = await enrollmentsDao.enrollUserInCourse(uid, cid);
+        res.send(status);
+    };
+
+    const unenrollUserFromCourse = async (req, res) => {
+        let { uid, cid } = req.params;
+        if (uid === "current") {
+            const currentUser = req.session["currentUser"];
+            uid = currentUser._id;
+        }
+        const status = await enrollmentsDao.unenrollUserInCourse(uid, cid);
+        res.send(status);
+    };
+
+    app.post("/api/users/:uid/courses/:cid", enrollUserInCourse);
+    app.delete("/api/users/:uid/courses/:cid", unenrollUserFromCourse);
     app.get("/api/users/:userId/enrollments", findEnrollmentsForUser);
 
-    const createEnrollment = async (req, res) => {
-        const currentUser = req.session["currentUser"];
-        const newEnrollment = enrollmentsDao.enrollUserInCourse(currentUser._id, req.body._id);
-        res.json(newEnrollment);
-    };
-    app.post("/api/users/current/enrollments", createEnrollment);
-
-    const deleteEnrollment = async (req, res) => {
-        const { enrollmentId } = req.params;
-        const status = await enrollmentsDao.unenrollUserInCourse(enrollmentId);
-        res.json(status);
-
-    };
-    app.delete("/api/users/current/enrollments/:enrollmentId", deleteEnrollment);
 }
