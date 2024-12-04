@@ -120,7 +120,6 @@ export default function UserRoutes(app) {
     };
     app.get("/api/users/:uid/courses", findCoursesForUser);
 
-
     const createCourse = (req, res) => {
         const currentUser = req.session["currentUser"];
         const newCourse = courseDao.createCourse(req.body);
@@ -140,7 +139,7 @@ export default function UserRoutes(app) {
             }
             userId = currentUser._id;
         }
-        const enrollments = enrollmentsDao.findEnrollmentsForUser(userId);
+        const enrollments = enrollmentsDao.findCoursesForUser(userId);
         res.json(enrollments);
     };
 
