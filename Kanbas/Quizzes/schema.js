@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 const quizSchema = new mongoose.Schema(
     {
         title: String,
+        published: Boolean,
+        desc: String,
         quizType: String,
         points: Number,
         assignmentGroup: String,
