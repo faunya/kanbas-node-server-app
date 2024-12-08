@@ -15,9 +15,9 @@ const quizSchema = new mongoose.Schema(
         oneQuestAtTime: Boolean,
         webcam: Boolean,
         lockQuestions: Boolean,
-        dueDate: Date,
-        availableDate: Date,
-        untilDate: Date,
+        dueDate: String,
+        availableDate: String,
+        untilDate: String,
         course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
     },
     { collection: "quizzes" }

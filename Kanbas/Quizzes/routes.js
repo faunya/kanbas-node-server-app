@@ -7,9 +7,10 @@ export default function AssignmentRoutes(app) {
         res.send(status);
     });
 
-    app.put("/api/quizs/:quizId", async (req, res) => {
+    app.put("/api/quizzes/:quizId", async (req, res) => {
         const { quizId } = req.params;
         const quizUpdates = req.body;
+        console.log(quizId);
         const status = await quizDao.updateQuiz(quizId, quizUpdates);
         res.send(status);
     });
