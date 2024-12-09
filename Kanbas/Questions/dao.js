@@ -1,7 +1,7 @@
 import model from "./model.js";
 
-export function findQuestionsForQuiz(courseId) {
-    return model.find({ course: courseId })
+export function findQuestionsForQuiz(quizId) {
+    return model.find({ quiz: quizId })
 }
 
 export function createQuestion(question) {
