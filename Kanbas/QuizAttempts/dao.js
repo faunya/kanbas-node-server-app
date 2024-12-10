@@ -9,7 +9,7 @@ export function findAttemptsForUser(userId) {
 }
 
 export function findAttemptForUserQuiz(userId, quizId) {
-    return model.find({ quiz: quizId, user: userId })
+    return model.findOne({ quiz: quizId, user: userId })
 }
 
 export function createAttempt(attempt) {

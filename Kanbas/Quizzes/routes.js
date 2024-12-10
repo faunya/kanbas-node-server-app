@@ -39,6 +39,17 @@ export default function QuizRoutes(app) {
         const attempts = await quizAttemptsDao.findAttemptsForQuiz(quizId);
         res.json(attempts);
     }
+    app.get("/api/quizzes/:quizId/attempts", findAttemptsForQuiz)
 
-    app.get("/api/quizzes/:quizId/questions", findAttemptsForQuiz)
+    const createAttemptForQuiz = async (req, res) => {
+        const { quizId } = req.params;
+        const attempt = {
+            ...req.body,
+            quiz: quizId,
+        };
+        const newAttempt = await quizAttemptsDao.createAttempt(attempt);
+        console.log(attempt)
+        res.send(newAttempt);
+    }
+    app.post("/api/quizzes/:quizId/attempts", createAttemptForQuiz)
 }

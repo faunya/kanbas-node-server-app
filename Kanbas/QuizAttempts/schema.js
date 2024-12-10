@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
 
-const questionSchema = new mongoose.Schema(
+const quizAttemptSchema = new mongoose.Schema(
     {
         attempt: Number,
+        startDate: String,
         points: Number,
         answers: Array,
         user: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel" },
         quiz: { type: mongoose.Schema.Types.ObjectId, ref: "QuizModel" },
     },
-    { collection: "questions" }
+    { collection: "quizAttempts" }
 )
 
-export default questionSchema;
+export default quizAttemptSchema;
