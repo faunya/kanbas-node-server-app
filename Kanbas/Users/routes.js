@@ -175,8 +175,19 @@ export default function UserRoutes(app) {
             const currentUser = req.session["currentUser"];
             uid = currentUser._id;
         }
-        const status = await quizAttemptsDao.findAttemptForUser(uid);
-        res.send(status);
+        const status = await quizAttemptsDao.findAttemptsForUser(uid);
+        res.json(status);
     }
-    app.get("/api/users/:uid/quizAttempts");
+    app.get("/api/users/:uid/quizAttempts", findQuizAttemptsForUser);
+
+    const findQuizAttemptForUser = async (req, res) => {
+        let { uid , qid} = req.params;
+        if (uid === "current") {
+            const currentUser = req.session["currentUser"];
+            uid = currentUser._id;
+        }
+        const status = await quizAttemptsDao.findAttemptForUserQuiz(uid, qid);
+        res.json(status);
+    }
+    app.get("/api/users/:uid/quiz/:qid/quizAttempts", findQuizAttemptForUser);
 }
