@@ -10,7 +10,7 @@ export default function QuizAttemptRoutes(app) {
     app.put("/api/attempts/:attemptId", async (req, res) => {
         const { attemptId } = req.params;
         const attemptUpdates = req.body;
-        const status = await attemptDao.updateQuestion(attemptId, attemptUpdates);
+        const status = await attemptDao.updateAttempt(attemptId, attemptUpdates);
         res.send(status);
     });
 }
